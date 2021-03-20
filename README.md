@@ -7,3 +7,5 @@ todo on steroids
 ## how to build
 
 `npm install`
+
+`npm run start`
