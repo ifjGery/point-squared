@@ -2,7 +2,7 @@
   "name": "point-squared",
   "version": "0.1.0",
   "description": "todo lists on steroid",
-  "main": "index.js",
+  "main": "src/index.js",
   "directories": {
     "doc": "docs"
   },
@@ -25,5 +25,9 @@
     "url": "https://github.com/ifjGery/point-squared/issues"
   },
   "homepage": "https://github.com/ifjGery/point-squared#readme",
-  "private": "true"
+  "private": "true",
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
 }
