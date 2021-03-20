@@ -21,6 +21,11 @@ jobs:
         
       - name: create output folder
         run: mkdir dist
+        
+      - name: copy files
+        run: |
+         cp -a /build/. /dist/
+         cp -a /public/. /dist/
       
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.0
