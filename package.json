@@ -1,0 +1,29 @@
+{
+  "name": "point-squared",
+  "version": "0.1.0",
+  "description": "todo lists on steroid",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ifjGery/point-squared.git"
+  },
+  "keywords": [
+    "todo",
+    "react",
+    "typescript",
+    "learning"
+  ],
+  "author": "Gergo Szatmari",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ifjGery/point-squared/issues"
+  },
+  "homepage": "https://github.com/ifjGery/point-squared#readme",
+  "private": "true"
+}
