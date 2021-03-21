@@ -9,16 +9,21 @@ console.log(`public path is set to: ${publicPath}`);
 
 module.exports = {
     mode: isEnvDevelopment ? 'development' : 'production',
-    entry: path.resolve(__dirname, 'src', 'index.js'),
+    entry: path.resolve(__dirname, 'src', 'index.ts'),
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: 'bundle.js'
     },
     resolve: {
-        extensions: ['.js', '.jsx', '.json']
+        extensions: ['.tsx','.ts','.js', '.jsx', '.json']
     },
     module: {
         rules: [
+            {
+                test: /\.tsx?$/,
+                exclude: /node_modules/,
+                use: 'ts-loader'
+            },
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
