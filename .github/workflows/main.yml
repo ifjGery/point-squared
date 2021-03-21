@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Build and Deploy for github pages
 
 on:
   push:
@@ -8,6 +8,8 @@ jobs:
   build:
     name: build the app
     runs-on: ubuntu-latest
+    env:
+      PUBLIC_PATH: point-squared
 
     steps:
       - uses: actions/checkout@v2
