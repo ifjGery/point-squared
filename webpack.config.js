@@ -5,6 +5,8 @@ const HtmlReplaceWebpackPlugin = require('html-replace-webpack-plugin');
 const isEnvDevelopment = process.env.NODE_ENV === 'development';
 const publicPath = process.env.PUBLIC_PATH || '';
 
+console.log(`public path is set to: ${publicPath}`);
+
 module.exports = {
     mode: isEnvDevelopment ? 'development' : 'production',
     entry: path.resolve(__dirname, 'src', 'index.js'),
