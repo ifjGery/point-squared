@@ -1,3 +1,5 @@
+![build and deploy status](https://github.com/ifjGery/point-squared/actions/workflows/main.yml/badge.svg)
+
 # point-squared
 todo on steroids
 
