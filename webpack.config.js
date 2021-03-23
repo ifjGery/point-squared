@@ -2,6 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlReplaceWebpackPlugin = require('html-replace-webpack-plugin');
 
+process.env.NODE_ENV == 'development';
+process.env.BABEL_ENV == 'development';
+
 const isEnvDevelopment = process.env.NODE_ENV === 'development';
 const publicPath = process.env.PUBLIC_PATH || '';
 
@@ -16,6 +19,9 @@ module.exports = {
     },
     resolve: {
         extensions: ['.tsx','.ts','.js', '.jsx', '.json']
+    },
+    optimization: {
+        minimize: false
     },
     module: {
         rules: [
@@ -32,7 +38,7 @@ module.exports = {
                     presets: [
                         "@babel/preset-env",
                         "@babel/preset-react"
-                    ]
+                    ],
                 }
             },
             {
