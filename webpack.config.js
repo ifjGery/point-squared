@@ -12,7 +12,7 @@ console.log(`public path is set to: ${publicPath}`);
 
 module.exports = {
     mode: isEnvDevelopment ? 'development' : 'production',
-    entry: path.resolve(__dirname, 'src', 'index.ts'),
+    entry: path.resolve(__dirname, 'src', 'index.tsx'),
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: 'bundle.js'
@@ -23,6 +23,7 @@ module.exports = {
     optimization: {
         minimize: false
     },
+    devtool: 'source-map',
     module: {
         rules: [
             {

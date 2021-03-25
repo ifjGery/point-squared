@@ -1,51 +1,90 @@
-import React from 'react';
-import {api} from './service';
+import React, { useState } from 'react';
+import {api, Item} from './service';
 import {
     Header,
     Container,
-    Segment
+    Segment,
+    List,
+    ItemDescription
 } from 'semantic-ui-react';
 import StateItem from './StateItem';
 import ItemCrator from './ItemCreator';
 
-const App = () => {
-    const tImportant = api.createTag("important");
+const App : React.FC = () => {
+    const [appState, setAppState] = useState({
+        tags: api.getTags(),
+        stateGroups: api.getStateAll(),
+        items: api.getItems()
+    });
 
-    const sgBasic = api.createStateGroup("basic");
-    const sDone = api.createState(sgBasic, "done");
-    const sReady = api.createState(sgBasic, "ready");
-    api.setStateAsDefault(sReady);
-    api.createStateEdge(sDone, sReady);
-    api.createStateEdge(sReady, sDone);
+    const addItem = (item: Item) => {
+        setAppState({
+            ...appState, 
+            items: {
+                ...appState.items, 
+                [item._id]: item
+            }
+        });
+    };
 
-    const iHello = api.createItem("Hello", sgBasic);
-    api.addTagToItem(iHello, tImportant);
+    const setItemState = (item: Item, state: string) => {
+        setAppState({
+            ...appState, 
+            items: {
+                ...appState.items, 
+                [item._id]: {
+                    ...item, 
+                    currentState: state
+                }
+            }
+        });
+        api.setItemState(item, api.getStateFromGroup(api.getStateGroup(item.baseState), state));
+    };
 
-    const iDoSmth = api.createItem("Do something", sgBasic);
-    api.setItemState(iDoSmth, sDone);
+    const addItemTag = (item: Item, tag: string) => {
+        item.tags.add(tag);
+        setAppState({
+            ...appState,
+            items: {
+                ...appState.items,
+                [item._id]: {
+                    ...item,
+                    tags: item.tags                    
+                }
+            }
+        });
+        api.addTagToItem(item, api.getTags()[tag]);
+    }
 
-    const iLive = api.createItem("Live", sgBasic);
-    api.addTagToItem(iLive, tImportant);
-
-    const sgWithWait = api.createStateGroup("real");
-    const sRDone = api.createState(sgWithWait, "done");
-    const sRReady = api.createState(sgWithWait, "ready");
-    const sRWaiting = api.createState(sgWithWait, "waiting");
-    api.setStateAsDefault(sRReady);
-    api.createStateEdge(sRDone, sRReady);
-    api.createStateEdge(sRDone, sRWaiting);
-    api.createStateEdge(sRReady, sRDone);
-    api.createStateEdge(sRReady, sRWaiting);
-    api.createStateEdge(sRWaiting, sRDone);
-    api.createStateEdge(sRWaiting, sRReady);
-
-    const iRealistic = api.createItem("Realistic", sgWithWait);
+    const addNewTag = (tagName: string) => {
+        const newTag = api.createTag(tagName);
+        setAppState({
+            ...appState,
+            tags: {
+                ...appState.tags,
+                [newTag._id]: newTag
+            }
+        });
+        return newTag._id;
+    }
         
     return (
         <Container>
             <Header as='h1' content='Point Squered' textAlign='center' />
-            <Segment vertical textAlign='center'><ItemCrator /></Segment>
-            {Object.values(api.getItems()).map(one => <Segment vertical><StateItem item={one} /></Segment>)}
+            <Segment vertical textAlign='center'><ItemCrator addItem={addItem} stateGroups={appState.stateGroups} /></Segment>
+            <List divided relaxed>
+                {Object.values(appState.items).map(one => <List.Item>
+                    <List.Content verticalAlign='middle'>
+                        <StateItem 
+                            item={one} 
+                            tags={appState.tags}
+                            updateStateCallback={setItemState} 
+                            addItemTagCallback={addItemTag}
+                            addNewTag={addNewTag}
+                        />
+                    </List.Content>
+                </List.Item>)}
+            </List>
         </Container>
     );
 }
