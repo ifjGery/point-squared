@@ -70,7 +70,7 @@ const App : React.FC = () => {
         
     return (
         <Container>
-            <Header as='h1' content='Point Squered' textAlign='center' />
+            <Header as='h1' content='Point Squared' textAlign='center' />
             <Segment vertical textAlign='center'><ItemCrator addItem={addItem} stateGroups={appState.stateGroups} /></Segment>
             <List divided relaxed>
                 {Object.values(appState.items).map(one => <List.Item>
