@@ -13429,7 +13429,7 @@ var App = function () {
         return newTag._id;
     };
     return (react.createElement(Container_Container, null,
-        react.createElement(Header_Header, { as: 'h1', content: 'Point Squered', textAlign: 'center' }),
+        react.createElement(Header_Header, { as: 'h1', content: 'Point Squared', textAlign: 'center' }),
         react.createElement(Segment_Segment, { vertical: true, textAlign: 'center' },
             react.createElement(src_ItemCreator, { addItem: addItem, stateGroups: appState.stateGroups })),
         react.createElement(List_List, { divided: true, relaxed: true }, Object.values(appState.items).map(function (one) { return react.createElement(List_List.Item, null,
