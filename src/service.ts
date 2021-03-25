@@ -6,7 +6,7 @@ export interface Tag {
     name: string;
 };
 
-type TagCollection = {
+export type TagCollection = {
     [key: string]: Tag;
 };
 
@@ -28,7 +28,7 @@ export interface State {
     default?: boolean
 };
 
-type StateCollection = {
+export type StateCollection = {
     [key: string]: State;
 };
 
@@ -38,7 +38,7 @@ export interface StateGroup {
     states: StateCollection
 };
 
-type StateGoupCollection = {
+export type StateGoupCollection = {
     [key: string]: StateGroup
 }
 
@@ -90,7 +90,7 @@ export interface Item {
     currentState: string
 };
 
-type ItemCollection = {
+export type ItemCollection = {
     [key: string]: Item
 };
 

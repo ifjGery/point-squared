@@ -1,15 +1,33 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Button, Dropdown, Input } from 'semantic-ui-react';
-import { api } from './service';
+import { api,  } from './service';
 
-const ItemCreator = () => {
-    const stateGroupOptions = Object.entries(api.getStateAll()).map(([key,one]) => ({key, text: one.name, value: key}));
+interface ItemCreatorProps {
+    addItem: Function
+    stateGroups: Object
+}
+
+const ItemCreator: React.FC<ItemCreatorProps> = ({addItem, stateGroups}) => {
+    const stateGroupOptions = Object.entries(stateGroups).map(([key,one]) => ({key, text: one.name, value: key}));
+
+    const [name, setName] = useState<string>('');
+    const [baseGroup, setBaseGroup] = useState<string>(stateGroupOptions[0].key);
+
+    const onAddItem = () => {
+        const base = api.getStateGroup(baseGroup);
+        addItem(api.createItem(name, base));
+    }
 
     return (
         <Fragment>
-            <Input label='name' />
-            <Dropdown defaultValue={stateGroupOptions[0].key} options={stateGroupOptions} />
-            <Button>Add Item</Button>
+            <Input label='name' value={name} onChange={e => setName(e.target.value)}/>
+            <Dropdown 
+                defaultValue={stateGroupOptions[0].key} 
+                options={stateGroupOptions} 
+                value={baseGroup} 
+                onChange={(event, data) => setBaseGroup((data.value as string))}
+            />
+            <Button onClick={onAddItem}>Add Item</Button>
         </Fragment>
     );
 }
