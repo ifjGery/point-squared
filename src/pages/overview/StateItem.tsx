@@ -1,6 +1,6 @@
-import React, { Fragment, SyntheticEvent } from 'react';
-import { Button, Dropdown, DropdownItemProps, DropdownProps, Grid, Icon, Input, InputOnChangeData, Label, LabelProps } from 'semantic-ui-react';
-import { api, Item, TagCollection } from './service';
+import React, { useEffect } from 'react';
+import { Button, Grid, Label } from 'semantic-ui-react';
+import { api, Item, TagCollection } from '../../service';
 import TagDropdownMenu from './AddNewTag';
 
 interface StateItemProps {
@@ -30,6 +30,11 @@ const StateItem : React.FC<StateItemProps> = ({item, tags, updateStateCallback, 
         const id = (e.target as HTMLElement).dataset['id'];
         updateStateCallback(item, id);
     }
+
+    
+    useEffect(() => {
+        console.log(baseState.states[item.currentState]);
+    }, []);
 
     return(
         <Grid verticalAlign='middle'>

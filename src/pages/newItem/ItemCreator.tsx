@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { Button, Dropdown, Input } from 'semantic-ui-react';
-import { api,  } from './service';
+import { api,  } from '../../service';
 
 interface ItemCreatorProps {
     addItem: Function

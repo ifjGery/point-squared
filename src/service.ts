@@ -10,7 +10,7 @@ export type TagCollection = {
     [key: string]: Tag;
 };
 
-const tags : TagCollection = {};
+let tags : TagCollection = {};
 
 const getTags = () : TagCollection => tags;
 
@@ -42,7 +42,7 @@ export type StateGoupCollection = {
     [key: string]: StateGroup
 }
 
-const states: StateGoupCollection = {};
+let states: StateGoupCollection = {};
 
 const getStateAll = () => states;
 
@@ -81,7 +81,6 @@ const createStateEdge = (state: State, edge: State) => {
 }
 
 // items
-
 export interface Item {
     _id: string,
     name: string,
@@ -94,7 +93,7 @@ export type ItemCollection = {
     [key: string]: Item
 };
 
-const items: ItemCollection = {};
+let items: ItemCollection = {};
 
 const getItems = (): ItemCollection => items;
 
@@ -113,7 +112,24 @@ const setItemState = (item: Item, state: State) => {
     item.currentState = state._id;
 }
 
+const init = (input: any) => {
+    for (const [key, value] of Object.entries(input.items as ItemCollection)) {
+        items[key] = {...value, tags: new Set(value.tags)};
+    }
+
+    for (const [groupKey, groupValue] of Object.entries(input.states as StateGoupCollection)) {
+        let localStates: StateCollection = {};
+        for (const [stateKey, stateValue] of Object.entries(groupValue.states as StateCollection)) {
+            localStates[stateKey] = {...stateValue, edges: new Set(stateValue.edges)};
+        }
+        states[groupKey] = {...groupValue, states: {...localStates}};
+    }
+
+    tags = input.tags;
+}
+
 export const api = {
+    init,
     getTags,
     createTag,
     getStateAll,
