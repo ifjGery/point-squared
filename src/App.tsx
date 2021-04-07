@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Container } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import { 
     BrowserRouter as Router, 
     Switch, 
@@ -7,15 +7,14 @@ import {
 } from 'react-router-dom';
 import OverviewPage from './pages/overview';
 import NewItemPage from './pages/newItem';
-import MenuBar from './MenuBar';
+import Header from './sharedComponents/Header';
 
 const App : React.FC = () => {
         
     return (
         <Router>
             <Container>
-                <Header as='h1' content='Point Squared' textAlign='center' />
-                <MenuBar />
+                <Header />
                 <Switch>
                     <Route path='/new'>
                         <NewItemPage />

@@ -1,8 +1,14 @@
 import React, {useState} from 'react';
+import styled from 'styled-components';
 import ItemCreator from './ItemCreator';
 import {api, Item} from '../../service';
 
 const NewItem : React.FC = () => {
+    const Wrapper = styled.div`
+        margin: 1em;
+        text-align: center;
+    `;
+
     const [appState, setAppState] = useState({
         tags: api.getTags(),
         stateGroups: api.getStateAll(),
@@ -20,7 +26,10 @@ const NewItem : React.FC = () => {
     };
 
     return (
-        <ItemCreator addItem={addItem} stateGroups={appState.stateGroups} />
+        <Wrapper>
+            <h2>Add new Item</h2>
+            <ItemCreator addItem={addItem} stateGroups={appState.stateGroups} />
+        </Wrapper>
     );
 }
 

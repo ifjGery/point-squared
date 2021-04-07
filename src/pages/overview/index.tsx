@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { List } from 'semantic-ui-react';
 import StateItem from './StateItem';
 import {api, Item} from '../../service';
 
 const Overview : React.FC = () => {
+    const Wrapper = styled.div`
+        margin: 1em 0;
+    `;
+
     const [appState, setAppState] = useState({
         tags: api.getTags(),
         stateGroups: api.getStateAll(),
@@ -52,19 +57,22 @@ const Overview : React.FC = () => {
     };
 
     return (
-        <List divided relaxed>
-            {Object.values(appState.items).map(one => <List.Item>
-                <List.Content verticalAlign='middle'>
-                    <StateItem 
-                        item={one} 
-                        tags={appState.tags}
-                        updateStateCallback={setItemState} 
-                        addItemTagCallback={addItemTag}
-                        addNewTag={addNewTag}
-                    />
-                </List.Content>
-            </List.Item>)}
-        </List>
+        <Wrapper>
+            <h2>Todo items</h2>
+            <List divided relaxed>
+                {Object.values(appState.items).map(one => <List.Item>
+                    <List.Content verticalAlign='middle'>
+                        <StateItem 
+                            item={one} 
+                            tags={appState.tags}
+                            updateStateCallback={setItemState} 
+                            addItemTagCallback={addItemTag}
+                            addNewTag={addNewTag}
+                        />
+                    </List.Content>
+                </List.Item>)}
+            </List>
+        </Wrapper>
     );
 }
 
