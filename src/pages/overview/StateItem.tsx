@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
-import { Button, Grid, Label } from 'semantic-ui-react';
+import React from 'react';
+import styled from 'styled-components';
+import { Grid, Label } from 'semantic-ui-react';
 import { api, Item, TagCollection } from '../../service';
 import TagDropdownMenu from './AddNewTag';
+import StateSelector from './StateSelector';
 
 interface StateItemProps {
     item: Item,
@@ -11,47 +13,35 @@ interface StateItemProps {
     addNewTag: Function
 }
 
-const spanStyle = {
-    marginRight: '0.5em'
-}
+const ItemName = styled.span`
+    margin-right: 0.5em;
+`;
 
-const itemStyle = {
-    marginTop: '0.3em',
-    display: 'inline-block',
-}
+const Item = styled.span`
+    margin-top: 0.3em;
+    display: inline-block;
+`;
 
-const StateItem : React.FC<StateItemProps> = ({item, tags, updateStateCallback, addItemTagCallback, addNewTag}) => {
-    const baseState = api.getStateGroup(item.baseState);
-    const validNextStates = Array.from(baseState.states[item.currentState].edges)
-        .map(one => api.getStateFromGroup(baseState, one));
-    const allTags = Object.values(tags).map(one => ({key: one._id, text: one.name, value: one._id}));
+const SelectorWrapper = styled.div`
+    float: right;
+    padding: 0.75em;
+`;
 
-    const onStateChange = (e: React.MouseEvent) => {
-        const id = (e.target as HTMLElement).dataset['id'];
-        updateStateCallback(item, id);
-    }
-
-    
-    useEffect(() => {
-        console.log(baseState.states[item.currentState]);
-    }, []);
-
-    return(
-        <Grid verticalAlign='middle'>
-            <Grid.Row>
-                <Grid.Column>
-                    <span style={itemStyle}>
-                        <span style={spanStyle}>{item.name}</span>
-                        {Array.from(item.tags).map(one => <Label horizontal>{api.getTags()[one].name}</Label>)}
-                        <TagDropdownMenu item={item} tags={tags} addItemTagCallback={addItemTagCallback} addNewTag={addNewTag}/>
-                    </span>
-                    <Button.Group floated='right'>
-                        {validNextStates.map(one => <Button data-id={one._id} onClick={onStateChange}>{one.name}</Button>)}
-                    </Button.Group>
-                </Grid.Column>
-            </Grid.Row>
-        </Grid>
-    );
-}
+const StateItem : React.FC<StateItemProps> = ({item, tags, updateStateCallback, addItemTagCallback, addNewTag}) => (
+    <Grid verticalAlign='middle'>
+        <Grid.Row>
+            <Grid.Column>
+                <Item>
+                    <ItemName>{item.name}</ItemName>
+                    {Array.from(item.tags).map(one => <Label horizontal>{api.getTags()[one].name}</Label>)}
+                    <TagDropdownMenu item={item} tags={tags} addItemTagCallback={addItemTagCallback} addNewTag={addNewTag}/>
+                </Item>
+                <SelectorWrapper>
+                    <StateSelector item={item} updateStateCallback={updateStateCallback} />
+                </SelectorWrapper>
+            </Grid.Column>
+        </Grid.Row>
+    </Grid>
+);
 
 export default StateItem;
