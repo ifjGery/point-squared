@@ -9,7 +9,6 @@ interface TagDropdownMenuProps {
     addNewTag: Function
 }
 
-
 const dropdownStyle = {
     padding: '0.5em',
     paddingRight: '0',

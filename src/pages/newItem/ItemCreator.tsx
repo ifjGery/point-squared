@@ -8,13 +8,13 @@ interface ItemCreatorProps {
     stateGroups: StateGoupCollection
 }
 
-const ItemCreator: React.FC<ItemCreatorProps> = ({addItem, stateGroups}) => {
-    const Wrapper = styled.section`
-        > * {
-            padding-right: 1em;
-        }
-    `;
+const Wrapper = styled.section`
+    > * {
+        padding-right: 1em;
+    }
+`;
 
+const ItemCreator: React.FC<ItemCreatorProps> = ({addItem, stateGroups}) => {
     const stateGroupOptions = Object.entries(stateGroups).map(([key,one]) => ({key, text: one.name, value: key}));
 
     const [name, setName] = useState<string>('');
