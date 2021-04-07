@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useState } from 'react';
-import { TagCollection, Item } from './service';
+import { TagCollection, Item } from '../../service';
 import { Dropdown, DropdownItemProps, Input } from 'semantic-ui-react';
 
 interface TagDropdownMenuProps {
