@@ -8,41 +8,41 @@ interface StateSelectorProps {
     updateStateCallback: Function,
 }
 
-const StateSelector: React.FC<StateSelectorProps> = ({item, updateStateCallback}) => {
-    const Wrapper = styled.span`
-        padding: 0.5em;
-        padding-right: 0;
-        border-radius: 0.25em;
-        border: 1px solid lightgray;
-        overflow: hidden;
-    `;
+const Wrapper = styled.span`
+    padding: 0.5em;
+    padding-right: 0;
+    border-radius: 0.25em;
+    border: 1px solid lightgray;
+    overflow: hidden;
+`;
 
-    const ActualState = styled.span`
-        padding-right: 0.25em;
-        margin-right: -1.25em;
-    `;
+const ActualState = styled.span`
+    padding-right: 0.25em;
+    margin-right: -1.25em;
+`;
 
-    const Arrow = styled(Icon)`
-        color: white;
-        position: relative;
-        left: 1em;
-    `;
+const Arrow = styled(Icon)`
+    color: white;
+    position: relative;
+    left: 1em;
+`;
 
-    const PossibleStates = styled.span`
-        background: rgba(0,0,0,0.1);
+const PossibleStates = styled.span`
+    background: rgba(0,0,0,0.1);
+    border: 0;
+    border-right: 1px solid lightgray;
+    padding: 0.5em;
+
+    :hover {
+        background: rgba(0,0,0,0.2);
+    }
+
+    :last-of-type {
         border: 0;
-        border-right: 1px solid lightgray;
-        padding: 0.5em;
+    }
+`;
 
-        :hover {
-            background: rgba(0,0,0,0.2);
-        }
-
-        :last-of-type {
-            border: 0;
-        }
-    `;
-
+const StateSelector: React.FC<StateSelectorProps> = ({item, updateStateCallback}) => {
     const baseState = api.getStateGroup(item.baseState);
     const currentState = api.getStateFromGroup(baseState, item.currentState);
     const validNextStates = Array.from(baseState.states[item.currentState].edges)

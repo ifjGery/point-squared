@@ -4,11 +4,11 @@ import { List } from 'semantic-ui-react';
 import StateItem from './StateItem';
 import {api, Item} from '../../service';
 
-const Overview : React.FC = () => {
-    const Wrapper = styled.div`
-        margin: 1em 0;
-    `;
+const Wrapper = styled.div`
+    margin: 1em 0;
+`;
 
+const Overview : React.FC = () => {
     const [appState, setAppState] = useState({
         tags: api.getTags(),
         stateGroups: api.getStateAll(),
