@@ -34,6 +34,7 @@ const MenuBar : React.FC = () => {
         <Menu>
             <MenuItem to="/" className={location.pathname === "/" ? "selected" : ""}>Home</MenuItem>
             <MenuItem to="/new" className={location.pathname === "/new" ? "selected" : ""}>New Item</MenuItem>
+            <MenuItem to="/stateGroup" className={location.pathname === "/stateGroup" ? "selected" : ""}>State Manager</MenuItem>
         </Menu>
     )
 }
