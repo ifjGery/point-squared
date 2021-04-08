@@ -99,7 +99,11 @@ const getItems = (): ItemCollection => items;
 
 const createItem = (name: string, baseState: StateGroup): Item => {
     const key = uuid();
-    const defaultState = Object.entries(baseState.states).filter(([,one]) => one.default === true).map(([,one]) => one)[0]?._id || "";
+    const possibleStates = Object.entries(baseState.states)
+    const defaultState = possibleStates
+        .filter(([,one]) => one.default === true)
+        .map(([,one]) => one)[0]?._id || 
+        possibleStates[0][1]._id;
     items[key] = { _id: key, name, tags: new Set<string>(), baseState: baseState._id, currentState: defaultState};
     return items[key];
 }

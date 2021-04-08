@@ -8,7 +8,7 @@ const Wrapper = styled.div`
     margin: 1em 0;
 `;
 
-const Overview : React.FC = () => {
+const OverviewPage : React.FC = () => {
     const [appState, setAppState] = useState({
         tags: api.getTags(),
         stateGroups: api.getStateAll(),
@@ -76,5 +76,5 @@ const Overview : React.FC = () => {
     );
 }
 
-export default Overview;
+export default OverviewPage;
 

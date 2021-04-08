@@ -8,6 +8,7 @@ import {
 import OverviewPage from './pages/overview';
 import NewItemPage from './pages/newItem';
 import Header from './sharedComponents/Header';
+import StateManagerPage from './pages/stateManager';
 
 const App : React.FC = () => {
         
@@ -18,6 +19,9 @@ const App : React.FC = () => {
                 <Switch>
                     <Route path='/new'>
                         <NewItemPage />
+                    </Route>
+                    <Route path='/stateGroup'>
+                        <StateManagerPage />
                     </Route>
                     <Route path='/'>
                         <OverviewPage />
