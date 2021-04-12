@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Link, useLocation} from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Menu = styled.section`
     margin-left: 2em;
@@ -10,6 +10,7 @@ const Menu = styled.section`
 const MenuItem = styled(Link)`
     padding: 0.5em;
     margin-right: 1em;
+    border-radius: 5px;
 
     :hover,
     &.selected:hover {
@@ -25,18 +26,30 @@ const MenuItem = styled(Link)`
     }
 `;
 
-const MenuBar : React.FC = () => {
-    
+type Item = {
+  path: string,
+  name: string
+};
 
-    const location = useLocation();
-
-    return (
-        <Menu>
-            <MenuItem to="/" className={location.pathname === "/" ? "selected" : ""}>Home</MenuItem>
-            <MenuItem to="/new" className={location.pathname === "/new" ? "selected" : ""}>New Item</MenuItem>
-            <MenuItem to="/stateGroup" className={location.pathname === "/stateGroup" ? "selected" : ""}>State Manager</MenuItem>
-        </Menu>
-    )
+interface MenuBarProps {
+  items: Array<Item>
 }
+
+const MenuBar : React.FC<MenuBarProps> = ({ items }) => {
+  const location = useLocation();
+
+  return (
+    <Menu>
+      {items.map((item) => (
+        <MenuItem
+          to={item.path}
+          className={location.pathname === item.path ? 'selected' : ''}
+        >
+          {item.name}
+        </MenuItem>
+      ))}
+    </Menu>
+  );
+};
 
 export default MenuBar;
