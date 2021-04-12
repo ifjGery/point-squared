@@ -19,6 +19,7 @@ const Wrapper = styled.span`
 const ActualState = styled.span`
   padding-right: 0.25em;
   margin-right: -1.25em;
+  user-select: none;
 `;
 
 const Arrow = styled(Icon)`
@@ -32,6 +33,8 @@ const PossibleStates = styled.span`
   border: 0;
   border-right: 1px solid lightgray;
   padding: 0.5em;
+  user-select: none;
+  cursor: pointer;
 
   :hover {
       background: rgba(0,0,0,0.2);

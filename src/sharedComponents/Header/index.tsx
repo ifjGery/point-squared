@@ -8,10 +8,16 @@ const StyledHeader = styled.header`
     alig-items: center;
 `;
 
+const menuItems = [
+  { path: '/', name: 'Home' },
+  { path: '/new', name: 'New Item' },
+  { path: '/stateGroup', name: 'State Manager' },
+];
+
 const Header: React.FC = () => (
   <StyledHeader>
     <Logo />
-    <MenuBar />
+    <MenuBar items={menuItems} />
   </StyledHeader>
 );
 

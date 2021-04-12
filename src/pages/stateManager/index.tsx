@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { api, StateGoupCollection } from '../../service';
-import AddNewStateGroup from './AddNewStateGroup';
+import InputButton from '../../sharedComponents/InputButton';
 import StateGroupView from './StateGroup';
 
 const Wrapper = styled.div`
@@ -56,7 +56,7 @@ const StateManagerPage: React.FC = () => {
     <Wrapper>
       <h2>State Manager</h2>
       <section>
-        <AddNewStateGroup newStateGroupCallback={addStateGroup} />
+        <InputButton callback={addStateGroup} buttonText="Add new state group" />
         {Object.values(stateGroups).map((one) => (
           <StateGroupView
             group={one}

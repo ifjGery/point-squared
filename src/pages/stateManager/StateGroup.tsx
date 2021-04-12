@@ -2,7 +2,7 @@ import React, { SyntheticEvent } from 'react';
 import { Dropdown, DropdownItemProps } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { StateGroup } from '../../service';
-import AddNewState from './AddNewState';
+import InputButton from '../../sharedComponents/InputButton';
 
 const Wrapper = styled.div`
   border-top: 1px solid lightgray;
@@ -44,6 +44,8 @@ const StateGroupView : React.FC<StateGroupViewProps> = (
     newEdgeCallback(group._id, data.parent, data.value);
   };
 
+  const onNewState = (value: any) => newStateCallback(group._id, value);
+
   const options = Object.values(group.states)
     .map((state) => ({ key: state._id, text: state.name, value: state._id }));
 
@@ -80,7 +82,7 @@ const StateGroupView : React.FC<StateGroupViewProps> = (
             </Dropdown>
           </div>
         ))}
-        <AddNewState groupId={group._id} newStateCallback={newStateCallback} />
+        <InputButton buttonText="add new state" callback={onNewState} />
       </States>
     </Wrapper>
   );
