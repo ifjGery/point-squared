@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Link, useLocation} from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Menu = styled.section`
     margin-left: 2em;
@@ -26,17 +26,15 @@ const MenuItem = styled(Link)`
 `;
 
 const MenuBar : React.FC = () => {
-    
+  const location = useLocation();
 
-    const location = useLocation();
-
-    return (
-        <Menu>
-            <MenuItem to="/" className={location.pathname === "/" ? "selected" : ""}>Home</MenuItem>
-            <MenuItem to="/new" className={location.pathname === "/new" ? "selected" : ""}>New Item</MenuItem>
-            <MenuItem to="/stateGroup" className={location.pathname === "/stateGroup" ? "selected" : ""}>State Manager</MenuItem>
-        </Menu>
-    )
-}
+  return (
+    <Menu>
+      <MenuItem to="/" className={location.pathname === '/' ? 'selected' : ''}>Home</MenuItem>
+      <MenuItem to="/new" className={location.pathname === '/new' ? 'selected' : ''}>New Item</MenuItem>
+      <MenuItem to="/stateGroup" className={location.pathname === '/stateGroup' ? 'selected' : ''}>State Manager</MenuItem>
+    </Menu>
+  );
+};
 
 export default MenuBar;

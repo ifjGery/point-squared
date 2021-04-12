@@ -1,11 +1,11 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button, Dropdown, Input } from 'semantic-ui-react';
-import { api, StateGoupCollection,  } from '../../service';
+import { api, StateGoupCollection } from '../../service';
 
 interface ItemCreatorProps {
-    addItem: Function
-    stateGroups: StateGoupCollection
+  addItem: Function
+  stateGroups: StateGoupCollection
 }
 
 const Wrapper = styled.section`
@@ -14,29 +14,30 @@ const Wrapper = styled.section`
     }
 `;
 
-const ItemCreator: React.FC<ItemCreatorProps> = ({addItem, stateGroups}) => {
-    const stateGroupOptions = Object.entries(stateGroups).map(([key,one]) => ({key, text: one.name, value: key}));
+const ItemCreator: React.FC<ItemCreatorProps> = ({ addItem, stateGroups }) => {
+  const stateGroupOptions = Object.entries(stateGroups)
+    .map(([key, one]) => ({ key, text: one.name, value: key }));
 
-    const [name, setName] = useState<string>('');
-    const [baseGroup, setBaseGroup] = useState<string>(stateGroupOptions[0].key);
+  const [name, setName] = useState<string>('');
+  const [baseGroup, setBaseGroup] = useState<string>(stateGroupOptions[0].key);
 
-    const onAddItem = () => {
-        const base = api.getStateGroup(baseGroup);
-        addItem(api.createItem(name, base));
-    }
+  const onAddItem = () => {
+    const base = api.getStateGroup(baseGroup);
+    addItem(api.createItem(name, base));
+  };
 
-    return (
-        <Wrapper>
-            <Input label='name' value={name} onChange={e => setName(e.target.value)}/>
-            <Dropdown 
-                defaultValue={stateGroupOptions[0].key} 
-                options={stateGroupOptions} 
-                value={baseGroup} 
-                onChange={(event, data) => setBaseGroup((data.value as string))}
-            />
-            <Button onClick={onAddItem}>Add Item</Button>
-        </Wrapper>
-    );
-}
+  return (
+    <Wrapper>
+      <Input label="name" value={name} onChange={(e) => setName(e.target.value)} />
+      <Dropdown
+        defaultValue={stateGroupOptions[0].key}
+        options={stateGroupOptions}
+        value={baseGroup}
+        onChange={(event, data) => setBaseGroup((data.value as string))}
+      />
+      <Button onClick={onAddItem}>Add Item</Button>
+    </Wrapper>
+  );
+};
 
 export default ItemCreator;

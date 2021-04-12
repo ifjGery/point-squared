@@ -5,10 +5,8 @@ const LogoStyled = styled.h1`
     margin: 0;
 `;
 
-const Logo: React.FC = () => {
-    return (
-        <LogoStyled>Point Squared</LogoStyled>
-    )
-}
+const Logo: React.FC = () => (
+  <LogoStyled>Point Squared</LogoStyled>
+);
 
 export default Logo;
