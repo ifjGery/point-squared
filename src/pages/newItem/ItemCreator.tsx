@@ -1,11 +1,18 @@
 import React, { Fragment, useState } from 'react';
+import styled from 'styled-components';
 import { Button, Dropdown, Input } from 'semantic-ui-react';
-import { api,  } from './service';
+import { api, StateGoupCollection,  } from '../../service';
 
 interface ItemCreatorProps {
     addItem: Function
-    stateGroups: Object
+    stateGroups: StateGoupCollection
 }
+
+const Wrapper = styled.section`
+    > * {
+        padding-right: 1em;
+    }
+`;
 
 const ItemCreator: React.FC<ItemCreatorProps> = ({addItem, stateGroups}) => {
     const stateGroupOptions = Object.entries(stateGroups).map(([key,one]) => ({key, text: one.name, value: key}));
@@ -19,7 +26,7 @@ const ItemCreator: React.FC<ItemCreatorProps> = ({addItem, stateGroups}) => {
     }
 
     return (
-        <Fragment>
+        <Wrapper>
             <Input label='name' value={name} onChange={e => setName(e.target.value)}/>
             <Dropdown 
                 defaultValue={stateGroupOptions[0].key} 
@@ -28,7 +35,7 @@ const ItemCreator: React.FC<ItemCreatorProps> = ({addItem, stateGroups}) => {
                 onChange={(event, data) => setBaseGroup((data.value as string))}
             />
             <Button onClick={onAddItem}>Add Item</Button>
-        </Fragment>
+        </Wrapper>
     );
 }
 
