@@ -7,6 +7,7 @@ todo on steroids
 ## dependencies
 
 - [nodejs](https://nodejs.org/en/)
+- [git bash](https://gitforwindows.org/)
 ## how to build
 
 `npm install`
