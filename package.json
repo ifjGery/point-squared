@@ -9,6 +9,7 @@
   "scripts": {
     "start": "webpack serve --config webpack.config.js",
     "build": "set NODE_ENV=development && webpack --config webpack.config.js",
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
