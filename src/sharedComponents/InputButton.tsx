@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
 import { Input, Button } from 'semantic-ui-react';
 
-interface AddNewStateGroupProps {
-  newStateGroupCallback: Function
+interface InputButtonProps {
+  callback: Function
+  buttonText: string
 }
 
-const AddNewStateGroup : React.FC<AddNewStateGroupProps> = ({ newStateGroupCallback }) => {
+const InputButton : React.FC<InputButtonProps> = ({ callback, buttonText }) => {
   const [value, setValue] = useState<string>('');
 
-  const addStateGroup = () => {
-    newStateGroupCallback(value);
+  const addState = () => {
+    callback(value);
     setValue('');
   };
 
-  const onNewStateGroup = () => {
-    addStateGroup();
+  const onNewState = () => {
+    addState();
   };
 
   const onKeyListener = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      addStateGroup();
+      addState();
     }
   };
 
@@ -29,10 +30,10 @@ const AddNewStateGroup : React.FC<AddNewStateGroupProps> = ({ newStateGroupCallb
       onChange={(e, data) => setValue(data.value)}
       onKeyDown={onKeyListener}
       action={
-        <Button onClick={onNewStateGroup}>add new state group</Button>
-            }
+        <Button onClick={onNewState}>{buttonText}</Button>
+      }
     />
   );
 };
 
-export default AddNewStateGroup;
+export default InputButton;

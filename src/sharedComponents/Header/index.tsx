@@ -8,13 +8,17 @@ const StyledHeader = styled.header`
     alig-items: center;
 `;
 
-const Header: React.FC = () => {
-    return (
-        <StyledHeader>
-            <Logo />
-            <MenuBar />
-        </StyledHeader>
-    );
-}
+const menuItems = [
+  { path: '/', name: 'Home' },
+  { path: '/new', name: 'New Item' },
+  { path: '/stateGroup', name: 'State Manager' },
+];
+
+const Header: React.FC = () => (
+  <StyledHeader>
+    <Logo />
+    <MenuBar items={menuItems} />
+  </StyledHeader>
+);
 
 export default Header;
