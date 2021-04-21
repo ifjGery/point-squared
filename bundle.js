@@ -2507,7 +2507,7 @@ module.exports = function (list, options) {
 
 /***/ }),
 
-/***/ 900:
+/***/ 650:
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12823,8 +12823,9 @@ var __assign = (undefined && undefined.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-restricted-syntax */
 
-;
 var tags = {};
 var getTags = function () { return tags; };
 var createTag = function (name) {
@@ -12832,29 +12833,10 @@ var createTag = function (name) {
     tags[key] = { _id: key, name: name };
     return tags[key];
 };
-;
-;
 var states = {};
 var getStateAll = function () { return states; };
 var getStateGroup = function (key) { return states[key] || null; };
-var isStateInStateGroup = function (group, needle) {
-    return !!Object.entries(group)
-        .filter(function (_a) {
-        var key = _a[0];
-        return key === needle;
-    }).length;
-};
-var findStateGroupByState = function (needle) {
-    return Object.entries(states)
-        .filter(function (_a) {
-        var one = _a[1];
-        return isStateInStateGroup(one, needle);
-    })
-        .map(function (_a) {
-        var key = _a[0];
-        return states[key];
-    });
-};
+// eslint-disable-next-line max-len
 var getStateFromGroup = function (group, key) { var _a; return ((_a = states[group._id]) === null || _a === void 0 ? void 0 : _a.states[key]) || null; };
 var createStateGroup = function (name) {
     var key = esm_browser_v4();
@@ -12872,7 +12854,6 @@ var setStateAsDefault = function (state) {
 var createStateEdge = function (state, edge) {
     state.edges.add(edge._id);
 };
-;
 var items = {};
 var getItems = function () { return items; };
 var createItem = function (name, baseState) {
@@ -12887,9 +12868,13 @@ var createItem = function (name, baseState) {
         .map(function (_a) {
         var one = _a[1];
         return one;
-    })[0]) === null || _a === void 0 ? void 0 : _a._id) ||
-        possibleStates[0][1]._id;
-    items[key] = { _id: key, name: name, tags: new Set(), baseState: baseState._id, currentState: defaultState };
+    })[0]) === null || _a === void 0 ? void 0 : _a._id)
+        || possibleStates[0][1]._id;
+    items[key] = {
+        _id: key,
+        name: name, tags: new Set(),
+        baseState: baseState._id, currentState: defaultState,
+    };
     return items[key];
 };
 var addTagToItem = function (item, tag) {
@@ -12928,7 +12913,7 @@ var api = {
     getItems: getItems,
     createItem: createItem,
     addTagToItem: addTagToItem,
-    setItemState: setItemState
+    setItemState: setItemState,
 };
 
 ;// CONCATENATED MODULE: ./node_modules/lodash-es/compact.js
@@ -16483,29 +16468,19 @@ Input.create = createShorthandFactory(Input, function (type) {
 });
 /* harmony default export */ const Input_Input = (Input);
 ;// CONCATENATED MODULE: ./src/pages/overview/AddNewTag.tsx
-var AddNewTag_assign = (undefined && undefined.__assign) || function () {
-    AddNewTag_assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return AddNewTag_assign.apply(this, arguments);
-};
 
 
 var dropdownStyle = {
     padding: '0.5em',
     paddingRight: '0',
-    borderRadius: '2em'
+    borderRadius: '2em',
 };
+var allTagsOptions = function (tags) { return Object.values(tags)
+    .map(function (one) { return ({ key: one._id, text: one.name, value: one._id }); }); };
 var AddNewTag = function (_a) {
     var tags = _a.tags, addItemTagCallback = _a.addItemTagCallback, item = _a.item, addNewTag = _a.addNewTag;
     var _b = (0,react.useState)(''), newTagInput = _b[0], setNewTagInput = _b[1];
-    var allTagsOptions = function (tags) { return Object.values(tags).map(function (one) { return ({ key: one._id, text: one.name, value: one._id }); }); };
-    var onNewTagSelected = function (e, data) {
+    var onNewTagSelected = function (_e, data) {
         addItemTagCallback(item, data.value);
     };
     var addTag = function () {
@@ -16521,13 +16496,13 @@ var AddNewTag = function (_a) {
             e.stopPropagation();
         }
     };
-    return (react.createElement(Dropdown, { icon: 'add', button: true, compact: true, style: dropdownStyle },
+    return (react.createElement(Dropdown, { icon: "add", button: true, compact: true, style: dropdownStyle },
         react.createElement(Dropdown.Menu, null,
             react.createElement(Input_Input, { action: {
                     icon: 'plus',
-                    onClick: addTag
-                }, onClick: function (e) { return e.stopPropagation(); }, value: newTagInput, onChange: function (e) { return setNewTagInput(e.target.value); }, onKeyDown: onKeyListener, onKeyUp: onKeyListener, placeholder: 'add new tag' }),
-            react.createElement(Dropdown.Menu, { scrolling: true }, allTagsOptions(tags).map(function (option) { return react.createElement(Dropdown.Item, AddNewTag_assign({ key: option.key, onClick: onNewTagSelected }, option)); })))));
+                    onClick: addTag,
+                }, onClick: function (e) { return e.stopPropagation(); }, value: newTagInput, onChange: function (e) { return setNewTagInput(e.target.value); }, onKeyDown: onKeyListener, onKeyUp: onKeyListener, placeholder: "add new tag" }),
+            react.createElement(Dropdown.Menu, { scrolling: true }, allTagsOptions(tags).map(function (option) { return (react.createElement(Dropdown.Item, { key: option.key, text: option.text, value: option.value, onClick: onNewTagSelected })); })))));
 };
 /* harmony default export */ const overview_AddNewTag = (AddNewTag);
 
@@ -16540,10 +16515,10 @@ var __makeTemplateObject = (undefined && undefined.__makeTemplateObject) || func
 
 
 
-var Wrapper = styled_components_browser_esm.span(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    padding: 0.5em;\n    padding-right: 0;\n    border-radius: 0.25em;\n    border: 1px solid lightgray;\n    overflow: hidden;\n"], ["\n    padding: 0.5em;\n    padding-right: 0;\n    border-radius: 0.25em;\n    border: 1px solid lightgray;\n    overflow: hidden;\n"])));
-var ActualState = styled_components_browser_esm.span(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    padding-right: 0.25em;\n    margin-right: -1.25em;\n"], ["\n    padding-right: 0.25em;\n    margin-right: -1.25em;\n"])));
-var Arrow = styled_components_browser_esm(Icon_Icon)(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n    color: white;\n    position: relative;\n    left: 1em;\n"], ["\n    color: white;\n    position: relative;\n    left: 1em;\n"])));
-var PossibleStates = styled_components_browser_esm.span(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n    background: rgba(0,0,0,0.1);\n    border: 0;\n    border-right: 1px solid lightgray;\n    padding: 0.5em;\n\n    :hover {\n        background: rgba(0,0,0,0.2);\n    }\n\n    :last-of-type {\n        border: 0;\n    }\n"], ["\n    background: rgba(0,0,0,0.1);\n    border: 0;\n    border-right: 1px solid lightgray;\n    padding: 0.5em;\n\n    :hover {\n        background: rgba(0,0,0,0.2);\n    }\n\n    :last-of-type {\n        border: 0;\n    }\n"])));
+var Wrapper = styled_components_browser_esm.span(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  padding: 0.5em;\n  padding-right: 0;\n  border-radius: 0.25em;\n  border: 1px solid lightgray;\n  overflow: hidden;\n"], ["\n  padding: 0.5em;\n  padding-right: 0;\n  border-radius: 0.25em;\n  border: 1px solid lightgray;\n  overflow: hidden;\n"])));
+var ActualState = styled_components_browser_esm.span(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  padding-right: 0.25em;\n  margin-right: -1.25em;\n  user-select: none;\n"], ["\n  padding-right: 0.25em;\n  margin-right: -1.25em;\n  user-select: none;\n"])));
+var Arrow = styled_components_browser_esm(Icon_Icon)(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  color: white;\n  position: relative;\n  left: 1em;\n"], ["\n  color: white;\n  position: relative;\n  left: 1em;\n"])));
+var PossibleStates = styled_components_browser_esm.span(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n  background: rgba(0,0,0,0.1);\n  border: 0;\n  border-right: 1px solid lightgray;\n  padding: 0.5em;\n  user-select: none;\n  cursor: pointer;\n\n  :hover {\n      background: rgba(0,0,0,0.2);\n  }\n\n  :last-of-type {\n      border: 0;\n  }\n"], ["\n  background: rgba(0,0,0,0.1);\n  border: 0;\n  border-right: 1px solid lightgray;\n  padding: 0.5em;\n  user-select: none;\n  cursor: pointer;\n\n  :hover {\n      background: rgba(0,0,0,0.2);\n  }\n\n  :last-of-type {\n      border: 0;\n  }\n"])));
 var StateSelector = function (_a) {
     var item = _a.item, updateStateCallback = _a.updateStateCallback;
     var baseState = api.getStateGroup(item.baseState);
@@ -16551,13 +16526,13 @@ var StateSelector = function (_a) {
     var validNextStates = Array.from(baseState.states[item.currentState].edges)
         .map(function (one) { return api.getStateFromGroup(baseState, one); });
     var onStateChange = function (e) {
-        var id = e.target.dataset['id'];
+        var id = e.target.dataset.id;
         updateStateCallback(item, id);
     };
     return (react.createElement(Wrapper, null,
         react.createElement(ActualState, null, currentState.name),
-        react.createElement(Arrow, { name: 'caret right' }),
-        validNextStates.map(function (one) { return react.createElement(PossibleStates, { "data-id": one._id, onClick: onStateChange }, one.name); })));
+        react.createElement(Arrow, { name: "caret right" }),
+        validNextStates.map(function (one) { return (react.createElement(PossibleStates, { "data-id": one._id, onClick: onStateChange }, one.name)); })));
 };
 /* harmony default export */ const overview_StateSelector = (StateSelector);
 var templateObject_1, templateObject_2, templateObject_3, templateObject_4;
@@ -16573,15 +16548,15 @@ var StateItem_makeTemplateObject = (undefined && undefined.__makeTemplateObject)
 
 
 
-var ItemName = styled_components_browser_esm.span(StateItem_templateObject_1 || (StateItem_templateObject_1 = StateItem_makeTemplateObject(["\n    margin-right: 0.5em;\n"], ["\n    margin-right: 0.5em;\n"])));
-var Item = styled_components_browser_esm.span(StateItem_templateObject_2 || (StateItem_templateObject_2 = StateItem_makeTemplateObject(["\n    margin-top: 0.3em;\n    display: inline-block;\n"], ["\n    margin-top: 0.3em;\n    display: inline-block;\n"])));
-var SelectorWrapper = styled_components_browser_esm.div(StateItem_templateObject_3 || (StateItem_templateObject_3 = StateItem_makeTemplateObject(["\n    float: right;\n    padding: 0.75em;\n"], ["\n    float: right;\n    padding: 0.75em;\n"])));
+var ItemName = styled_components_browser_esm.span(StateItem_templateObject_1 || (StateItem_templateObject_1 = StateItem_makeTemplateObject(["\n  margin-right: 0.5em;\n"], ["\n  margin-right: 0.5em;\n"])));
+var SingleItem = styled_components_browser_esm.span(StateItem_templateObject_2 || (StateItem_templateObject_2 = StateItem_makeTemplateObject(["\n  margin-top: 0.3em;\n  display: inline-block;\n"], ["\n  margin-top: 0.3em;\n  display: inline-block;\n"])));
+var SelectorWrapper = styled_components_browser_esm.div(StateItem_templateObject_3 || (StateItem_templateObject_3 = StateItem_makeTemplateObject(["\n  float: right;\n  padding: 0.75em;\n"], ["\n  float: right;\n  padding: 0.75em;\n"])));
 var StateItem = function (_a) {
     var item = _a.item, tags = _a.tags, updateStateCallback = _a.updateStateCallback, addItemTagCallback = _a.addItemTagCallback, addNewTag = _a.addNewTag;
-    return (react.createElement(Grid_Grid, { verticalAlign: 'middle' },
+    return (react.createElement(Grid_Grid, { verticalAlign: "middle" },
         react.createElement(Grid_Grid.Row, null,
             react.createElement(Grid_Grid.Column, null,
-                react.createElement(Item, null,
+                react.createElement(SingleItem, null,
                     react.createElement(ItemName, null, item.name),
                     Array.from(item.tags).map(function (one) { return react.createElement(Label, { horizontal: true }, api.getTags()[one].name); }),
                     react.createElement(overview_AddNewTag, { item: item, tags: tags, addItemTagCallback: addItemTagCallback, addNewTag: addNewTag })),
@@ -16617,7 +16592,7 @@ var OverviewPage = function () {
     var _a = (0,react.useState)({
         tags: api.getTags(),
         stateGroups: api.getStateAll(),
-        items: api.getItems()
+        items: api.getItems(),
     }), appState = _a[0], setAppState = _a[1];
     var addNewTag = function (tagName) {
         var _a;
@@ -16638,9 +16613,9 @@ var OverviewPage = function () {
     };
     return (react.createElement(overview_Wrapper, null,
         react.createElement("h2", null, "Todo items"),
-        react.createElement(List_List, { divided: true, relaxed: true }, Object.values(appState.items).map(function (one) { return react.createElement(List_List.Item, null,
-            react.createElement(List_List.Content, { verticalAlign: 'middle' },
-                react.createElement(overview_StateItem, { item: one, tags: appState.tags, updateStateCallback: setItemState, addItemTagCallback: addItemTag, addNewTag: addNewTag }))); }))));
+        react.createElement(List_List, { divided: true, relaxed: true }, Object.values(appState.items).map(function (one) { return (react.createElement(List_List.Item, null,
+            react.createElement(List_List.Content, { verticalAlign: "middle" },
+                react.createElement(overview_StateItem, { item: one, tags: appState.tags, updateStateCallback: setItemState, addItemTagCallback: addItemTag, addNewTag: addNewTag })))); }))));
 };
 /* harmony default export */ const overview = (OverviewPage);
 var overview_templateObject_1;
@@ -16657,7 +16632,8 @@ var ItemCreator_makeTemplateObject = (undefined && undefined.__makeTemplateObjec
 var ItemCreator_Wrapper = styled_components_browser_esm.section(ItemCreator_templateObject_1 || (ItemCreator_templateObject_1 = ItemCreator_makeTemplateObject(["\n    > * {\n        padding-right: 1em;\n    }\n"], ["\n    > * {\n        padding-right: 1em;\n    }\n"])));
 var ItemCreator = function (_a) {
     var addItem = _a.addItem, stateGroups = _a.stateGroups;
-    var stateGroupOptions = Object.entries(stateGroups).map(function (_a) {
+    var stateGroupOptions = Object.entries(stateGroups)
+        .map(function (_a) {
         var key = _a[0], one = _a[1];
         return ({ key: key, text: one.name, value: key });
     });
@@ -16668,7 +16644,7 @@ var ItemCreator = function (_a) {
         addItem(api.createItem(name, base));
     };
     return (react.createElement(ItemCreator_Wrapper, null,
-        react.createElement(Input_Input, { label: 'name', value: name, onChange: function (e) { return setName(e.target.value); } }),
+        react.createElement(Input_Input, { label: "name", value: name, onChange: function (e) { return setName(e.target.value); } }),
         react.createElement(Dropdown, { defaultValue: stateGroupOptions[0].key, options: stateGroupOptions, value: baseGroup, onChange: function (event, data) { return setBaseGroup(data.value); } }),
         react.createElement(Button_Button, { onClick: onAddItem }, "Add Item")));
 };
@@ -16700,7 +16676,7 @@ var NewItem = function () {
     var _a = (0,react.useState)({
         tags: api.getTags(),
         stateGroups: api.getStateAll(),
-        items: api.getItems()
+        items: api.getItems(),
     }), appState = _a[0], setAppState = _a[1];
     var addItem = function (item) {
         var _a;
@@ -16721,9 +16697,7 @@ var Logo_makeTemplateObject = (undefined && undefined.__makeTemplateObject) || f
 
 
 var LogoStyled = styled_components_browser_esm.h1(Logo_templateObject_1 || (Logo_templateObject_1 = Logo_makeTemplateObject(["\n    margin: 0;\n"], ["\n    margin: 0;\n"])));
-var Logo = function () {
-    return (react.createElement(LogoStyled, null, "Point Squared"));
-};
+var Logo = function () { return (react.createElement(LogoStyled, null, "Point Squared")); };
 /* harmony default export */ const Header_Logo = (Logo);
 var Logo_templateObject_1;
 
@@ -16736,13 +16710,11 @@ var MenuBar_makeTemplateObject = (undefined && undefined.__makeTemplateObject) |
 
 
 var Menu = styled_components_browser_esm.section(MenuBar_templateObject_1 || (MenuBar_templateObject_1 = MenuBar_makeTemplateObject(["\n    margin-left: 2em;\n    align-self: center;\n"], ["\n    margin-left: 2em;\n    align-self: center;\n"])));
-var MenuItem = styled_components_browser_esm(Link)(MenuBar_templateObject_2 || (MenuBar_templateObject_2 = MenuBar_makeTemplateObject(["\n    padding: 0.5em;\n    margin-right: 1em;\n\n    :hover,\n    &.selected:hover {\n        background: rgba(0,0,0,0.2);\n    }\n\n    :last-of-type {\n        margin-right: 0;\n    }\n\n    &.selected {\n        background: rgba(0,0,0,0.1);\n    }\n"], ["\n    padding: 0.5em;\n    margin-right: 1em;\n\n    :hover,\n    &.selected:hover {\n        background: rgba(0,0,0,0.2);\n    }\n\n    :last-of-type {\n        margin-right: 0;\n    }\n\n    &.selected {\n        background: rgba(0,0,0,0.1);\n    }\n"])));
-var MenuBar = function () {
+var MenuItem = styled_components_browser_esm(Link)(MenuBar_templateObject_2 || (MenuBar_templateObject_2 = MenuBar_makeTemplateObject(["\n    padding: 0.5em;\n    margin-right: 1em;\n    border-radius: 5px;\n\n    :hover,\n    &.selected:hover {\n        background: rgba(0,0,0,0.2);\n    }\n\n    :last-of-type {\n        margin-right: 0;\n    }\n\n    &.selected {\n        background: rgba(0,0,0,0.1);\n    }\n"], ["\n    padding: 0.5em;\n    margin-right: 1em;\n    border-radius: 5px;\n\n    :hover,\n    &.selected:hover {\n        background: rgba(0,0,0,0.2);\n    }\n\n    :last-of-type {\n        margin-right: 0;\n    }\n\n    &.selected {\n        background: rgba(0,0,0,0.1);\n    }\n"])));
+var MenuBar = function (_a) {
+    var items = _a.items;
     var location = useLocation();
-    return (react.createElement(Menu, null,
-        react.createElement(MenuItem, { to: "/", className: location.pathname === "/" ? "selected" : "" }, "Home"),
-        react.createElement(MenuItem, { to: "/new", className: location.pathname === "/new" ? "selected" : "" }, "New Item"),
-        react.createElement(MenuItem, { to: "/stateGroup", className: location.pathname === "/stateGroup" ? "selected" : "" }, "State Manager")));
+    return (react.createElement(Menu, null, items.map(function (item) { return (react.createElement(MenuItem, { to: item.path, className: location.pathname === item.path ? 'selected' : '' }, item.name)); })));
 };
 /* harmony default export */ const Header_MenuBar = (MenuBar);
 var MenuBar_templateObject_1, MenuBar_templateObject_2;
@@ -16757,47 +16729,28 @@ var Header_makeTemplateObject = (undefined && undefined.__makeTemplateObject) ||
 
 
 var StyledHeader = styled_components_browser_esm.header(Header_templateObject_1 || (Header_templateObject_1 = Header_makeTemplateObject(["\n    display: flex;\n    alig-items: center;\n"], ["\n    display: flex;\n    alig-items: center;\n"])));
-var Header = function () {
-    return (react.createElement(StyledHeader, null,
-        react.createElement(Header_Logo, null),
-        react.createElement(Header_MenuBar, null)));
-};
+var menuItems = [
+    { path: '/', name: 'Home' },
+    { path: '/new', name: 'New Item' },
+    { path: '/stateGroup', name: 'State Manager' },
+];
+var Header = function () { return (react.createElement(StyledHeader, null,
+    react.createElement(Header_Logo, null),
+    react.createElement(Header_MenuBar, { items: menuItems }))); };
 /* harmony default export */ const sharedComponents_Header = (Header);
 var Header_templateObject_1;
 
-;// CONCATENATED MODULE: ./src/pages/stateManager/AddNewStateGroup.tsx
+;// CONCATENATED MODULE: ./src/sharedComponents/InputButton.tsx
 
 
-var AddNewStateGroup = function (_a) {
-    var newStateGroupCallback = _a.newStateGroupCallback;
-    var _b = (0,react.useState)(''), value = _b[0], setValue = _b[1];
-    var addStateGroup = function () {
-        newStateGroupCallback(value);
-        setValue('');
-    };
-    var onNewStateGroup = function (e, data) {
-        addStateGroup();
-    };
-    var onKeyListener = function (e) {
-        if (e.key === 'Enter') {
-            addStateGroup();
-        }
-    };
-    return (react.createElement(Input_Input, { value: value, onChange: function (e, data) { return setValue(data.value); }, onKeyDown: onKeyListener, action: react.createElement(Button_Button, { onClick: onNewStateGroup }, "add new state group") }));
-};
-/* harmony default export */ const stateManager_AddNewStateGroup = (AddNewStateGroup);
-
-;// CONCATENATED MODULE: ./src/pages/stateManager/AddNewState.tsx
-
-
-var AddNewState = function (_a) {
-    var groupId = _a.groupId, newStateCallback = _a.newStateCallback;
+var InputButton = function (_a) {
+    var callback = _a.callback, buttonText = _a.buttonText;
     var _b = (0,react.useState)(''), value = _b[0], setValue = _b[1];
     var addState = function () {
-        newStateCallback(groupId, value);
+        callback(value);
         setValue('');
     };
-    var onNewState = function (e, data) {
+    var onNewState = function () {
         addState();
     };
     var onKeyListener = function (e) {
@@ -16805,53 +16758,46 @@ var AddNewState = function (_a) {
             addState();
         }
     };
-    return (react.createElement(Input_Input, { value: value, onChange: function (e, data) { return setValue(data.value); }, onKeyDown: onKeyListener, action: react.createElement(Button_Button, { parent: groupId, onClick: onNewState }, "add new state") }));
+    return (react.createElement(Input_Input, { value: value, onChange: function (e, data) { return setValue(data.value); }, onKeyDown: onKeyListener, action: react.createElement(Button_Button, { onClick: onNewState }, buttonText) }));
 };
-/* harmony default export */ const stateManager_AddNewState = (AddNewState);
+/* harmony default export */ const sharedComponents_InputButton = (InputButton);
 
 ;// CONCATENATED MODULE: ./src/pages/stateManager/StateGroup.tsx
 var StateGroup_makeTemplateObject = (undefined && undefined.__makeTemplateObject) || function (cooked, raw) {
     if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
     return cooked;
 };
-var StateGroup_assign = (undefined && undefined.__assign) || function () {
-    StateGroup_assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return StateGroup_assign.apply(this, arguments);
-};
 
 
 
 
-var StateGroup_Wrapper = styled_components_browser_esm.div(StateGroup_templateObject_1 || (StateGroup_templateObject_1 = StateGroup_makeTemplateObject(["\n    border-top: 1px solid lightgray;\n    padding-top: 0.5em;\n    margin-top: 0.5em;\n"], ["\n    border-top: 1px solid lightgray;\n    padding-top: 0.5em;\n    margin-top: 0.5em;\n"])));
-var States = styled_components_browser_esm.div(StateGroup_templateObject_2 || (StateGroup_templateObject_2 = StateGroup_makeTemplateObject(["\n    margin-left: 2em;\n    margin-bottom: 1em;\n    line-height: 3em;\n"], ["\n    margin-left: 2em;\n    margin-bottom: 1em;\n    line-height: 3em;\n"])));
-var SingleState = styled_components_browser_esm.span(StateGroup_templateObject_3 || (StateGroup_templateObject_3 = StateGroup_makeTemplateObject(["\n    margin-right: 0.5em;\n\n    :last-of-kind {\n        margin-right: 0;\n    }\n\n    background: lightgray;\n    padding: 0.2em 0.5em;\n    border-radius: 5px;\n"], ["\n    margin-right: 0.5em;\n\n    :last-of-kind {\n        margin-right: 0;\n    }\n\n    background: lightgray;\n    padding: 0.2em 0.5em;\n    border-radius: 5px;\n"])));
+var StateGroup_Wrapper = styled_components_browser_esm.div(StateGroup_templateObject_1 || (StateGroup_templateObject_1 = StateGroup_makeTemplateObject(["\n  border-top: 1px solid lightgray;\n  padding-top: 0.5em;\n  margin-top: 0.5em;\n"], ["\n  border-top: 1px solid lightgray;\n  padding-top: 0.5em;\n  margin-top: 0.5em;\n"])));
+var States = styled_components_browser_esm.div(StateGroup_templateObject_2 || (StateGroup_templateObject_2 = StateGroup_makeTemplateObject(["\n  margin-left: 2em;\n  margin-bottom: 1em;\n  line-height: 3em;\n"], ["\n  margin-left: 2em;\n  margin-bottom: 1em;\n  line-height: 3em;\n"])));
+var SingleState = styled_components_browser_esm.span(StateGroup_templateObject_3 || (StateGroup_templateObject_3 = StateGroup_makeTemplateObject(["\n  margin-right: 0.5em;\n\n  :last-of-kind {\n      margin-right: 0;\n  }\n\n  background: lightgray;\n  padding: 0.2em 0.5em;\n  border-radius: 5px;\n"], ["\n  margin-right: 0.5em;\n\n  :last-of-kind {\n      margin-right: 0;\n  }\n\n  background: lightgray;\n  padding: 0.2em 0.5em;\n  border-radius: 5px;\n"])));
 var StateGroupView = function (_a) {
     var group = _a.group, newEdgeCallback = _a.newEdgeCallback, newStateCallback = _a.newStateCallback;
-    var onNewEdgeSelected = function (e, data) {
+    var onNewEdgeSelected = function (_e, data) {
         newEdgeCallback(group._id, data.parent, data.value);
     };
-    var options = Object.values(group.states).map(function (state) { return ({ key: state._id, text: state.name, value: state._id }); });
+    var onNewState = function (value) { return newStateCallback(group._id, value); };
+    var options = Object.values(group.states)
+        .map(function (state) { return ({ key: state._id, text: state.name, value: state._id }); });
     return (react.createElement(StateGroup_Wrapper, null,
         react.createElement("h3", null, group.name),
         react.createElement(States, null,
-            Object.values(group.states).map(function (one) { return react.createElement("div", null,
+            Object.values(group.states).map(function (one) { return (react.createElement("div", null,
                 one.name,
-                " ",
+                ' ',
                 one.default ? ' (default)' : '',
-                " ->",
-                Array.from(one.edges).map(function (edge) { return react.createElement(SingleState, null, group.states[edge].name); }),
-                react.createElement(Dropdown, { icon: 'add', compact: true },
+                ' ',
+                "->",
+                Array.from(one.edges)
+                    .map(function (edge) { return react.createElement(SingleState, null, group.states[edge].name); }),
+                react.createElement(Dropdown, { icon: "add", compact: true },
                     react.createElement(Dropdown.Menu, null, options
                         .filter(function (state) { return state.value !== one._id; })
-                        .map(function (item) { return react.createElement(Dropdown.Item, StateGroup_assign({}, item, { parent: one._id, onClick: onNewEdgeSelected })); })))); }),
-            react.createElement(stateManager_AddNewState, { groupId: group._id, newStateCallback: newStateCallback }))));
+                        .map(function (item) { return (react.createElement(Dropdown.Item, { key: item.key, text: item.text, value: item.value, parent: one._id, onClick: onNewEdgeSelected })); }))))); }),
+            react.createElement(sharedComponents_InputButton, { buttonText: "add new state", callback: onNewState }))));
 };
 /* harmony default export */ const StateGroup = (StateGroupView);
 var StateGroup_templateObject_1, StateGroup_templateObject_2, StateGroup_templateObject_3;
@@ -16877,7 +16823,7 @@ var stateManager_assign = (undefined && undefined.__assign) || function () {
 
 
 
-var stateManager_Wrapper = styled_components_browser_esm.div(stateManager_templateObject_1 || (stateManager_templateObject_1 = stateManager_makeTemplateObject(["\n    margin: 1em 0;\n"], ["\n    margin: 1em 0;\n"])));
+var stateManager_Wrapper = styled_components_browser_esm.div(stateManager_templateObject_1 || (stateManager_templateObject_1 = stateManager_makeTemplateObject(["\n  margin: 1em 0;\n"], ["\n  margin: 1em 0;\n"])));
 var StateManagerPage = function () {
     var _a = (0,react.useState)(api.getStateAll()), stateGroups = _a[0], setStateGroups = _a[1];
     var addEdge = function (groupId, stateId, edgeId) {
@@ -16900,8 +16846,8 @@ var StateManagerPage = function () {
     return (react.createElement(stateManager_Wrapper, null,
         react.createElement("h2", null, "State Manager"),
         react.createElement("section", null,
-            react.createElement(stateManager_AddNewStateGroup, { newStateGroupCallback: addStateGroup }),
-            Object.values(stateGroups).map(function (one) { return react.createElement(StateGroup, { group: one, newEdgeCallback: addEdge, newStateCallback: addState }); }))));
+            react.createElement(sharedComponents_InputButton, { callback: addStateGroup, buttonText: "Add new state group" }),
+            Object.values(stateGroups).map(function (one) { return (react.createElement(StateGroup, { group: one, newEdgeCallback: addEdge, newStateCallback: addState })); }))));
 };
 /* harmony default export */ const stateManager = (StateManagerPage);
 var stateManager_templateObject_1;
@@ -16914,18 +16860,16 @@ var stateManager_templateObject_1;
 
 
 
-var App = function () {
-    return (react.createElement(BrowserRouter, null,
-        react.createElement(Container_Container, null,
-            react.createElement(sharedComponents_Header, null),
-            react.createElement(Switch, null,
-                react.createElement(Route, { path: '/new' },
-                    react.createElement(newItem, null)),
-                react.createElement(Route, { path: '/stateGroup' },
-                    react.createElement(stateManager, null)),
-                react.createElement(Route, { path: '/' },
-                    react.createElement(overview, null))))));
-};
+var App = function () { return (react.createElement(BrowserRouter, null,
+    react.createElement(Container_Container, null,
+        react.createElement(sharedComponents_Header, null),
+        react.createElement(Switch, null,
+            react.createElement(Route, { path: "/new" },
+                react.createElement(newItem, null)),
+            react.createElement(Route, { path: "/stateGroup" },
+                react.createElement(stateManager, null)),
+            react.createElement(Route, { path: "/" },
+                react.createElement(overview, null)))))); };
 /* harmony default export */ const src_App = (App);
 
 // EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
@@ -17055,7 +16999,7 @@ api.init(mockData_namespaceObject);
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__(900);
+/******/ 	var __webpack_exports__ = __webpack_require__(650);
 /******/ 	
 /******/ })()
 ;
