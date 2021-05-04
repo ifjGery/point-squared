@@ -16,7 +16,8 @@
     "build": "set NODE_ENV=development && webpack --config webpack.config.js",
     "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
     "test": "jest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "cy:run": "cypress run"
   },
   "repository": {
     "type": "git",
