@@ -30,7 +30,7 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        exclude: [/node_modules/, /\.test.tsx?$/],
+        exclude: /node_modules/,
         use: 'ts-loader',
       },
       {
@@ -48,6 +48,10 @@ module.exports = {
       {
         test: /\.(png|woff(2)?|ttf|svg|eot)?$/,
         use: ['file-loader'],
+      },
+      {
+        test: /\.test\.tsx$/,
+        use: 'ignore-loader',
       },
     ],
   },
