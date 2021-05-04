@@ -61,7 +61,7 @@ const StateSelector: React.FC<StateSelectorProps> = ({
   };
 
   return (
-    <Wrapper>
+    <Wrapper className="state-selector">
       <ActualState>{currentState.name}</ActualState>
       <Arrow name="caret right" />
       {validNextStates.map((one) => (
