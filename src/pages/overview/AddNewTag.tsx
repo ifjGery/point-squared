@@ -3,10 +3,10 @@ import { Dropdown, DropdownItemProps, Input } from 'semantic-ui-react';
 import { TagCollection, Item } from '../../service';
 
 interface TagDropdownMenuProps {
-  item: Item,
-  tags: TagCollection,
-  addItemTagCallback: Function
-  addNewTag: Function
+  item: Item;
+  tags: TagCollection;
+  addItemTagCallback: Function;
+  addNewTag: Function;
 }
 
 const dropdownStyle = {
@@ -15,17 +15,24 @@ const dropdownStyle = {
   borderRadius: '2em',
 };
 
-const allTagsOptions = (tags: TagCollection) => Object.values(tags)
-  .map((one) => ({ key: one._id, text: one.name, value: one._id }));
+const allTagsOptions = (tags: TagCollection) =>
+  Object.values(tags).map((one) => ({
+    key: one._id,
+    text: one.name,
+    value: one._id,
+  }));
 
 const AddNewTag: React.FC<TagDropdownMenuProps> = ({
-  tags, addItemTagCallback, item, addNewTag,
+  tags,
+  addItemTagCallback,
+  item,
+  addNewTag,
 }) => {
   const [newTagInput, setNewTagInput] = useState<string>('');
 
   const onNewTagSelected = (
     _e: SyntheticEvent<HTMLElement, MouseEvent>,
-    data: DropdownItemProps,
+    data: DropdownItemProps
   ) => {
     addItemTagCallback(item, data.value);
   };
@@ -53,7 +60,7 @@ const AddNewTag: React.FC<TagDropdownMenuProps> = ({
             icon: 'plus',
             onClick: addTag,
           }}
-          onClick={(e : MouseEvent) => e.stopPropagation()}
+          onClick={(e: MouseEvent) => e.stopPropagation()}
           value={newTagInput}
           onChange={(e) => setNewTagInput(e.target.value)}
           onKeyDown={onKeyListener}

@@ -18,9 +18,9 @@ const itemPartialData = {
   currentState: 'test',
 };
 
-let mockCreateItem : jest.SpyInstance = null;
-let mockGetStateGroup : jest.SpyInstance = null;
-let addItemMock : jest.Mock = null;
+let mockCreateItem: jest.SpyInstance = null;
+let mockGetStateGroup: jest.SpyInstance = null;
+let addItemMock: jest.Mock = null;
 
 beforeEach(() => {
   mockCreateItem = jest.spyOn(api, 'createItem');
@@ -41,7 +41,12 @@ afterEach(() => {
 });
 
 test('ItemCreator functions properly', () => {
-  render(<ItemCreator addItem={addItemMock} stateGroups={{ TEST_GROUP: stateGroupMockData }} />);
+  render(
+    <ItemCreator
+      addItem={addItemMock}
+      stateGroups={{ TEST_GROUP: stateGroupMockData }}
+    />
+  );
 
   const input = screen.getByPlaceholderText('item name');
   fireEvent.change(input, { target: { value: 'TEST_VALUE' } });

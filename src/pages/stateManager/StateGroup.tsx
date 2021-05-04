@@ -20,7 +20,7 @@ const SingleState = styled.span`
   margin-right: 0.5em;
 
   :last-of-kind {
-      margin-right: 0;
+    margin-right: 0;
   }
 
   background: lightgray;
@@ -29,25 +29,30 @@ const SingleState = styled.span`
 `;
 
 interface StateGroupViewProps {
-  group: StateGroup
-  newEdgeCallback: Function
-  newStateCallback: Function
+  group: StateGroup;
+  newEdgeCallback: Function;
+  newStateCallback: Function;
 }
 
-const StateGroupView : React.FC<StateGroupViewProps> = (
-  { group, newEdgeCallback, newStateCallback },
-) => {
+const StateGroupView: React.FC<StateGroupViewProps> = ({
+  group,
+  newEdgeCallback,
+  newStateCallback,
+}) => {
   const onNewEdgeSelected = (
     _e: SyntheticEvent<HTMLElement, MouseEvent>,
-    data: DropdownItemProps,
+    data: DropdownItemProps
   ) => {
     newEdgeCallback(group._id, data.parent, data.value);
   };
 
   const onNewState = (value: any) => newStateCallback(group._id, value);
 
-  const options = Object.values(group.states)
-    .map((state) => ({ key: state._id, text: state.name, value: state._id }));
+  const options = Object.values(group.states).map((state) => ({
+    key: state._id,
+    text: state.name,
+    value: state._id,
+  }));
 
   return (
     <Wrapper>
@@ -55,17 +60,11 @@ const StateGroupView : React.FC<StateGroupViewProps> = (
       <States>
         {Object.values(group.states).map((one) => (
           <div>
-            {one.name}
-            {' '}
-            {one.default ? ' (default)' : ''}
-            {' '}
-            -&gt;
-            {Array.from(one.edges)
-              .map((edge) => <SingleState>{group.states[edge].name}</SingleState>)}
-            <Dropdown
-              icon="add"
-              compact
-            >
+            {one.name} {one.default ? ' (default)' : ''} -&gt;
+            {Array.from(one.edges).map((edge) => (
+              <SingleState>{group.states[edge].name}</SingleState>
+            ))}
+            <Dropdown icon="add" compact>
               <Dropdown.Menu>
                 {options
                   .filter((state) => state.value !== one._id)

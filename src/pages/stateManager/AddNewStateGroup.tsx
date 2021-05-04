@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Input, Button } from 'semantic-ui-react';
 
 interface AddNewStateGroupProps {
-  newStateGroupCallback: Function
+  newStateGroupCallback: Function;
 }
 
-const AddNewStateGroup : React.FC<AddNewStateGroupProps> = ({ newStateGroupCallback }) => {
+const AddNewStateGroup: React.FC<AddNewStateGroupProps> = ({
+  newStateGroupCallback,
+}) => {
   const [value, setValue] = useState<string>('');
 
   const addStateGroup = () => {
@@ -28,9 +30,7 @@ const AddNewStateGroup : React.FC<AddNewStateGroupProps> = ({ newStateGroupCallb
       value={value}
       onChange={(e, data) => setValue(data.value)}
       onKeyDown={onKeyListener}
-      action={
-        <Button onClick={onNewStateGroup}>add new state group</Button>
-            }
+      action={<Button onClick={onNewStateGroup}>add new state group</Button>}
     />
   );
 };

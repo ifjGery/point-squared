@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Input, Button } from 'semantic-ui-react';
 
 interface InputButtonProps {
-  callback: Function
-  buttonText: string
+  callback: Function;
+  buttonText: string;
 }
 
-const InputButton : React.FC<InputButtonProps> = ({ callback, buttonText }) => {
+const InputButton: React.FC<InputButtonProps> = ({ callback, buttonText }) => {
   const [value, setValue] = useState<string>('');
 
   const addState = () => {
@@ -29,9 +29,7 @@ const InputButton : React.FC<InputButtonProps> = ({ callback, buttonText }) => {
       value={value}
       onChange={(e, data) => setValue(data.value)}
       onKeyDown={onKeyListener}
-      action={
-        <Button onClick={onNewState}>{buttonText}</Button>
-      }
+      action={<Button onClick={onNewState}>{buttonText}</Button>}
     />
   );
 };

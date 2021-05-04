@@ -5,10 +5,10 @@ import StateItem from './StateItem';
 import { api, Item } from '../../service';
 
 const Wrapper = styled.div`
-    margin: 1em 0;
+  margin: 1em 0;
 `;
 
-const OverviewPage : React.FC = () => {
+const OverviewPage: React.FC = () => {
   const [appState, setAppState] = useState({
     tags: api.getTags(),
     stateGroups: api.getStateAll(),
@@ -53,7 +53,10 @@ const OverviewPage : React.FC = () => {
         },
       },
     });
-    api.setItemState(item, api.getStateFromGroup(api.getStateGroup(item.baseState), state));
+    api.setItemState(
+      item,
+      api.getStateFromGroup(api.getStateGroup(item.baseState), state)
+    );
   };
 
   return (

@@ -4,11 +4,11 @@ import ItemCreator from './ItemCreator';
 import { api, Item } from '../../service';
 
 const Wrapper = styled.div`
-    margin: 1em;
-    text-align: center;
+  margin: 1em;
+  text-align: center;
 `;
 
-const NewItem : React.FC = () => {
+const NewItem: React.FC = () => {
   const [appState, setAppState] = useState({
     tags: api.getTags(),
     stateGroups: api.getStateAll(),

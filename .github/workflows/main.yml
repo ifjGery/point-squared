@@ -2,7 +2,7 @@ name: Build and Deploy
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -14,22 +14,20 @@ jobs:
 
       - name: install node modules
         run: npm install
-        
+
       - name: run build
         run: npm run build
-        
-        
+
       - name: create output folder
         run: mkdir dist
-        
+
       - name: copy files
         run: |
-         cp -a ./public/. ./dist/
-         cp -a ./build/. ./dist/
-      
+          cp -a ./public/. ./dist/
+          cp -a ./build/. ./dist/
+
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.0
         with:
           branch: gh-pages
           folder: dist
-

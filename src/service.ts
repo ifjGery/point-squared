@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 
 // tags
 export interface Tag {
-  _id: string,
+  _id: string;
   name: string;
 }
 
@@ -12,9 +12,9 @@ export type TagCollection = {
   [key: string]: Tag;
 };
 
-let tags : TagCollection = {};
+let tags: TagCollection = {};
 
-const getTags = () : TagCollection => tags;
+const getTags = (): TagCollection => tags;
 
 const createTag = (name: string): Tag => {
   const key = uuid();
@@ -24,10 +24,10 @@ const createTag = (name: string): Tag => {
 
 // states
 export interface State {
-  _id: string,
-  name: string,
-  edges: Set<string>
-  default?: boolean
+  _id: string;
+  name: string;
+  edges: Set<string>;
+  default?: boolean;
 }
 
 export type StateCollection = {
@@ -35,23 +35,24 @@ export type StateCollection = {
 };
 
 export interface StateGroup {
-  _id: string,
-  name: string,
-  states: StateCollection
+  _id: string;
+  name: string;
+  states: StateCollection;
 }
 
 export type StateGoupCollection = {
-  [key: string]: StateGroup
+  [key: string]: StateGroup;
 };
 
 const states: StateGoupCollection = {};
 
 const getStateAll = () => states;
 
-const getStateGroup = (key : string): StateGroup | null => states[key] || null;
+const getStateGroup = (key: string): StateGroup | null => states[key] || null;
 
 // eslint-disable-next-line max-len
-const getStateFromGroup = (group: StateGroup, key: string): State | null => states[group._id]?.states[key] || null;
+const getStateFromGroup = (group: StateGroup, key: string): State | null =>
+  states[group._id]?.states[key] || null;
 
 const createStateGroup = (name: string): StateGroup => {
   const key = uuid();
@@ -75,15 +76,15 @@ const createStateEdge = (state: State, edge: State) => {
 
 // items
 export interface Item {
-  _id: string,
-  name: string,
-  tags: Set<string>,
-  baseState: string,
-  currentState: string
+  _id: string;
+  name: string;
+  tags: Set<string>;
+  baseState: string;
+  currentState: string;
 }
 
 export type ItemCollection = {
-  [key: string]: Item
+  [key: string]: Item;
 };
 
 const items: ItemCollection = {};
@@ -93,12 +94,16 @@ const getItems = (): ItemCollection => items;
 const createItem = (name: string, baseState: StateGroup): Item => {
   const key = uuid();
   const possibleStates = Object.entries(baseState.states);
-  const defaultState = possibleStates
-    .filter(([,one]) => one.default === true)
-    .map(([,one]) => one)[0]?._id
-        || possibleStates[0][1]._id;
+  const defaultState =
+    possibleStates
+      .filter(([, one]) => one.default === true)
+      .map(([, one]) => one)[0]?._id || possibleStates[0][1]._id;
   items[key] = {
-    _id: key, name, tags: new Set<string>(), baseState: baseState._id, currentState: defaultState,
+    _id: key,
+    name,
+    tags: new Set<string>(),
+    baseState: baseState._id,
+    currentState: defaultState,
   };
   return items[key];
 };
@@ -116,10 +121,17 @@ const init = (input: any) => {
     items[key] = { ...value, tags: new Set(value.tags) };
   }
 
-  for (const [groupKey, groupValue] of Object.entries(input.states as StateGoupCollection)) {
+  for (const [groupKey, groupValue] of Object.entries(
+    input.states as StateGoupCollection
+  )) {
     const localStates: StateCollection = {};
-    for (const [stateKey, stateValue] of Object.entries(groupValue.states as StateCollection)) {
-      localStates[stateKey] = { ...stateValue, edges: new Set(stateValue.edges) };
+    for (const [stateKey, stateValue] of Object.entries(
+      groupValue.states as StateCollection
+    )) {
+      localStates[stateKey] = {
+        ...stateValue,
+        edges: new Set(stateValue.edges),
+      };
     }
     states[groupKey] = { ...groupValue, states: { ...localStates } };
   }

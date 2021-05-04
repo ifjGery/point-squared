@@ -4,8 +4,8 @@ import Logo from './Logo';
 import MenuBar from './MenuBar';
 
 const StyledHeader = styled.header`
-    display: flex;
-    alig-items: center;
+  display: flex;
+  alig-items: center;
 `;
 
 const menuItems = [

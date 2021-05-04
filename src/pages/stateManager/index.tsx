@@ -9,7 +9,9 @@ const Wrapper = styled.div`
 `;
 
 const StateManagerPage: React.FC = () => {
-  const [stateGroups, setStateGroups] = useState<StateGoupCollection>(api.getStateAll());
+  const [stateGroups, setStateGroups] = useState<StateGoupCollection>(
+    api.getStateAll()
+  );
 
   const addEdge = (groupId: string, stateId: string, edgeId: string) => {
     stateGroups[groupId].states[stateId].edges.add(edgeId);
@@ -29,7 +31,7 @@ const StateManagerPage: React.FC = () => {
     const stateGroup = api.getStateGroup(groupId);
     api.createStateEdge(
       api.getStateFromGroup(stateGroup, stateId),
-      api.getStateFromGroup(stateGroup, edgeId),
+      api.getStateFromGroup(stateGroup, edgeId)
     );
   };
 
@@ -56,7 +58,10 @@ const StateManagerPage: React.FC = () => {
     <Wrapper>
       <h2>State Manager</h2>
       <section>
-        <InputButton callback={addStateGroup} buttonText="Add new state group" />
+        <InputButton
+          callback={addStateGroup}
+          buttonText="Add new state group"
+        />
         {Object.values(stateGroups).map((one) => (
           <StateGroupView
             group={one}

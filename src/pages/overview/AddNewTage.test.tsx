@@ -29,12 +29,14 @@ beforeEach(() => {
 
 test('ItemCreator adds a tag', () => {
   // given
-  const { container } = render(<AddNewTag
-    item={itemMockData}
-    tags={tagsMockData}
-    addItemTagCallback={addItemTagCallbackMock}
-    addNewTag={addNewTagMock}
-  />);
+  const { container } = render(
+    <AddNewTag
+      item={itemMockData}
+      tags={tagsMockData}
+      addItemTagCallback={addItemTagCallbackMock}
+      addNewTag={addNewTagMock}
+    />
+  );
 
   // when
   fireEvent.click(container.querySelector('.add.icon'));
@@ -49,12 +51,14 @@ test('ItemCreator creates a tag', () => {
   // given
   addNewTagMock.mockReturnValue(NEW_TAG);
 
-  const { container } = render(<AddNewTag
-    item={itemMockData}
-    tags={tagsMockData}
-    addItemTagCallback={addItemTagCallbackMock}
-    addNewTag={addNewTagMock}
-  />);
+  const { container } = render(
+    <AddNewTag
+      item={itemMockData}
+      tags={tagsMockData}
+      addItemTagCallback={addItemTagCallbackMock}
+      addNewTag={addNewTagMock}
+    />
+  );
 
   // when
   fireEvent.click(container.querySelector('.add.icon'));

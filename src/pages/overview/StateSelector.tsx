@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { api, Item } from '../../service';
 
 interface StateSelectorProps {
-  item: Item
-  updateStateCallback: Function,
+  item: Item;
+  updateStateCallback: Function;
 }
 
 const Wrapper = styled.span`
@@ -29,7 +29,7 @@ const Arrow = styled(Icon)`
 `;
 
 const PossibleStates = styled.span`
-  background: rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.1);
   border: 0;
   border-right: 1px solid lightgray;
   padding: 0.5em;
@@ -37,19 +37,23 @@ const PossibleStates = styled.span`
   cursor: pointer;
 
   :hover {
-      background: rgba(0,0,0,0.2);
+    background: rgba(0, 0, 0, 0.2);
   }
 
   :last-of-type {
-      border: 0;
+    border: 0;
   }
 `;
 
-const StateSelector: React.FC<StateSelectorProps> = ({ item, updateStateCallback }) => {
+const StateSelector: React.FC<StateSelectorProps> = ({
+  item,
+  updateStateCallback,
+}) => {
   const baseState = api.getStateGroup(item.baseState);
   const currentState = api.getStateFromGroup(baseState, item.currentState);
-  const validNextStates = Array.from(baseState.states[item.currentState].edges)
-    .map((one) => api.getStateFromGroup(baseState, one));
+  const validNextStates = Array.from(
+    baseState.states[item.currentState].edges
+  ).map((one) => api.getStateFromGroup(baseState, one));
 
   const onStateChange = (e: React.MouseEvent) => {
     const { id } = (e.target as HTMLElement).dataset;
@@ -61,10 +65,7 @@ const StateSelector: React.FC<StateSelectorProps> = ({ item, updateStateCallback
       <ActualState>{currentState.name}</ActualState>
       <Arrow name="caret right" />
       {validNextStates.map((one) => (
-        <PossibleStates
-          data-id={one._id}
-          onClick={onStateChange}
-        >
+        <PossibleStates data-id={one._id} onClick={onStateChange}>
           {one.name}
         </PossibleStates>
       ))}

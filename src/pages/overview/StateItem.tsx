@@ -6,11 +6,11 @@ import TagDropdownMenu from './AddNewTag';
 import StateSelector from './StateSelector';
 
 interface StateItemProps {
-  item: Item,
-  updateStateCallback: Function,
-  tags: TagCollection,
-  addItemTagCallback: Function,
-  addNewTag: Function
+  item: Item;
+  updateStateCallback: Function;
+  tags: TagCollection;
+  addItemTagCallback: Function;
+  addNewTag: Function;
 }
 
 const ItemName = styled.span`
@@ -27,15 +27,21 @@ const SelectorWrapper = styled.div`
   padding: 0.75em;
 `;
 
-const StateItem : React.FC<StateItemProps> = ({
-  item, tags, updateStateCallback, addItemTagCallback, addNewTag,
+const StateItem: React.FC<StateItemProps> = ({
+  item,
+  tags,
+  updateStateCallback,
+  addItemTagCallback,
+  addNewTag,
 }) => (
   <Grid verticalAlign="middle">
     <Grid.Row>
       <Grid.Column>
         <SingleItem>
           <ItemName>{item.name}</ItemName>
-          {Array.from(item.tags).map((one) => <Label horizontal>{api.getTags()[one].name}</Label>)}
+          {Array.from(item.tags).map((one) => (
+            <Label horizontal>{api.getTags()[one].name}</Label>
+          ))}
           <TagDropdownMenu
             item={item}
             tags={tags}
@@ -44,7 +50,10 @@ const StateItem : React.FC<StateItemProps> = ({
           />
         </SingleItem>
         <SelectorWrapper>
-          <StateSelector item={item} updateStateCallback={updateStateCallback} />
+          <StateSelector
+            item={item}
+            updateStateCallback={updateStateCallback}
+          />
         </SelectorWrapper>
       </Grid.Column>
     </Grid.Row>
