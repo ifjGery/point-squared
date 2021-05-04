@@ -28,9 +28,8 @@ const ItemCreator: React.FC<ItemCreatorProps> = ({ addItem, stateGroups }) => {
 
   return (
     <Wrapper>
-      <Input label="name" value={name} onChange={(e) => setName(e.target.value)} />
+      <Input placeholder="item name" label="name" value={name} onChange={(e) => setName(e.target.value)} />
       <Dropdown
-        defaultValue={stateGroupOptions[0].key}
         options={stateGroupOptions}
         value={baseGroup}
         onChange={(event, data) => setBaseGroup((data.value as string))}
